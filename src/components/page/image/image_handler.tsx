@@ -8,7 +8,7 @@ import { ImageCarousel } from "./ImageCarosel"
 import { ImageHexGrid } from "./ImageHexGrid"
 import { ImageMasonry } from "./ImageMasonry"
 
-export default function ImageHandler({userData, imageContent, variant}: {userData: UserData, imageContent: ImageContent, variant: string}) {
+export default function ImageHandler({userData, imageContent, variant, imageIndex}: {userData: UserData, imageContent: ImageContent, variant: string, imageIndex: number}) {
     
     // Randomize border styles individually
     const borderWidths = ["border-none", "border", "border-2", "border-4"];
@@ -59,7 +59,9 @@ export default function ImageHandler({userData, imageContent, variant}: {userDat
     };
 
     const selectedComponents = variantToComponentMap[variant as keyof typeof variantToComponentMap] || [<ImageSimple {...userData} imageContent={imageContent} borderStyle={borderStyle} hoverEffect={hoverEffect} filterEffect={filterEffect} />];
-    const imageChoice = hs(userData.twitter_username + "image", selectedComponents.length);
+    
+    // Use imageIndex to determine which image component to render
+    const imageChoice = hs(userData.twitter_username + "image" + imageIndex, selectedComponents.length);
 
     return (
         <div className="p-10 flex justify-center">
@@ -67,4 +69,3 @@ export default function ImageHandler({userData, imageContent, variant}: {userDat
         </div>
     )
 }
-

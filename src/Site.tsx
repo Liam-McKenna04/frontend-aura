@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom'
 import { createClient } from '@supabase/supabase-js';
 import Header from './components/page/header/header_handler';
-import { Proportions } from 'lucide-react';
 import Quote from './components/page/quote/quote_handler';
 import Hero from './components/page/hero/hero_handler';
 import List from './components/page/list/list_handler';
@@ -113,7 +112,7 @@ export default function Site() {
                     <div key={rowIndex} className="flex flex-row items-center justify-center">
                         {row.map((component, colIndex) => (
                             <div key={`${rowIndex}-${colIndex}`} className={`w-full ${row.length > 1 ? `md:w-1/${row.length}` : ''}`}>
-                                {renderComponent(component, userData)}
+                                {renderComponent(component, userData, rowIndex + colIndex)}
                             </div>
                         ))}
                     </div>
@@ -125,12 +124,12 @@ export default function Site() {
     );
 }
 
-function renderComponent(component: SiteComponent, userData: UserData) {
+function renderComponent(component: SiteComponent, userData: UserData, imageIndex: number) {
     switch (component.type) {
         case 'hero': return <Hero userData={userData} heroContent={component.content as HeroContent} variant={component.variant} />
         case 'quote': return <Quote userData={userData} quoteContent={component.content as QuoteContent} variant={component.variant} />
         case 'list': return <List userData={userData} listContent={component.content as ListContent} variant={component.variant} />
-        case 'image': return <ImageHandler userData={userData} imageContent={component.content as ImageContent} variant={component.variant} />
+        case 'image': return <ImageHandler userData={userData} imageContent={component.content as ImageContent} variant={component.variant} imageIndex={imageIndex} />
         case 'moodboard': return <Moodboard colors={userData.colors} variant={component.variant} />
         case 'voting': return <VotingHandler component_id={component.id} userData={userData} votingContent={component.content as VotingContent} variant={component.variant} />  
         default: return null;
@@ -190,7 +189,7 @@ function organizeComponents(components: SiteComponent[], username: string): Site
   let currentRow: SiteComponent[] = [];
   let lastType: string | null = null;
 
-  reorderedComponents.forEach((component, index) => {
+  reorderedComponents.forEach((component) => {
     if (component.type === 'hero' || component.type === 'quote' || component.type === 'list') {
       if (currentRow.length > 0) {
         rows.push(currentRow);

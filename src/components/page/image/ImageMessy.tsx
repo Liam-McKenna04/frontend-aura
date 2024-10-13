@@ -44,7 +44,7 @@ export const ImageMessy: React.FC<ImageMessyProps> = ({
             <NonEmptyImage
               src={imageContent.baseImageUrl}
               alt={imageContent.description || "Base Image"}
-              className={`w-full h-full object-cover rounded-full shadow-lg ${borderStyle} ${hoverEffect}`}
+              className={`w-full h-full object-cover ${hs(imageContent.baseImageUrl + 'rounded', 2) === 0  ? 'rounded-sm' : 'rounded-lg'} shadow-lg ${borderStyle} ${hoverEffect}`}
             />
           </div>
         )}
