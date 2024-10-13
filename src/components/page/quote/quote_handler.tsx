@@ -1,20 +1,19 @@
 import { hs } from "@/lib/utils"
 import { QuoteMinimalist, QuoteElegantScript, QuoteModernDropShadow, QuoteRetroTypography, QuoteHandwrittenNote } from "./quote1"
 import { UserData } from "@/Site"
-import React from "react"
 import { QuoteContent } from "../../../../supabase/functions/createSite/types"
 
 export default function Quote({userData, quoteContent, variant}: {userData: UserData, quoteContent: QuoteContent, variant: string}) {
     const quote = quoteContent.text
 
     // Choose border style
-    const borderStyles = [
-        "border border-gray-200",
-        "border-2 border-gray-300",
-        `border-l-4 border-[${userData.primary_color}]`,
-        "border-none"
-    ]
-    const borderStyle = borderStyles[hs(userData.twitter_username + "quoteborder", borderStyles.length)]
+    // const borderStyles = [
+    //     "border border-gray-200",
+    //     "border-2 border-gray-300",
+    //     `border-l-4 border-[${userData.primary_color}]`,
+    //     "border-none"
+    // ]
+    // const borderStyle = borderStyles[hs(userData.twitter_username + "quoteborder", borderStyles.length)]
 
     // Choose layout style
     const layoutStyles = ["text-left", "text-center", "text-right"]

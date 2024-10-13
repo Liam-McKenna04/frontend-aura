@@ -33,7 +33,6 @@ const NonEmptyImage: React.FC<{ src: string; className: string }> = ({ src, clas
 export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   borderStyle,
   hoverEffect,
-  filterEffect,
   imageContent,
 }) => {
   const images = [imageContent.baseImageUrl, ...(imageContent.similarImages?.filter(Boolean) || [])]

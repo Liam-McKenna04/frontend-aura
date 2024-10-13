@@ -25,7 +25,7 @@ export default function VotingHandler({ userData, votingContent, variant, compon
     const debouncedUpdate = debounce(async () => {
       // Convert votes object to array
       const votesArray = Object.values(votes)
-      const {data, error} = await supabase.from('components').update({ voting_array: JSON.stringify(votesArray) }).eq('id', component_id)
+      const {error} = await supabase.from('components').update({ voting_array: JSON.stringify(votesArray) }).eq('id', component_id)
       if (error) console.error('Error updating votes:', error)
     }, 500)
     debouncedUpdate()

@@ -1,7 +1,6 @@
-import React from 'react';
 import { UserData } from "@/Site";
 import { hs } from "@/lib/utils";
-import { Check, ChevronRight, Star, ArrowRight } from "lucide-react"
+import { Check, ChevronRight } from "lucide-react"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Leaf } from "lucide-react"
 
@@ -13,7 +12,7 @@ interface ListProps extends UserData {
 }
 
 // Minimal List
-function MinimalList({ layoutStyle, items, title, ...props }: ListProps) {
+function MinimalList({ layoutStyle, items, title }: ListProps) {
   return (
     <div className={`${layoutStyle} bg-gray-50 p-6 rounded-lg shadow-sm`}>
       <h3 className="text-xl font-semibold mb-4 text-gray-800">{title}</h3>
@@ -115,7 +114,7 @@ function GradientCardsList({ layoutStyle, items, title, ...props }: ListProps) {
 }
 
 // Retro Pixel List
-function RetroPixelList({ layoutStyle, items, title, ...props }: ListProps) {
+function RetroPixelList({ layoutStyle, items, title }: ListProps) {
   return (
     <div className={`${layoutStyle} bg-yellow-100 p-6 rounded-lg border-4 border-black`}>
       <h3 className="font-press-start-2p text-xl mb-8 border-b-4 border-black pb-4 text-center">{title}</h3>
@@ -156,7 +155,7 @@ function ElegantNumberedList({ layoutStyle, items, title, ...props }: ListProps)
   );
 }
 // Nature-inspired List
-function NatureInspiredList({ layoutStyle, items, title, ...props }: ListProps) {
+function NatureInspiredList({ layoutStyle, items, title }: ListProps) {
   return (
     <div className={`${layoutStyle} w-full max-w-md mx-auto bg-gradient-to-b from-green-100 to-green-200 p-8 rounded-2xl shadow-xl`}>
       <h3 className="text-3xl font-bold text-green-800 mb-6 text-center">{title}</h3>
