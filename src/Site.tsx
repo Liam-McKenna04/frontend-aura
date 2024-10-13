@@ -82,6 +82,8 @@ export default function Site() {
             } catch (error) {
                 console.error('Error fetching user data:', error);
                 setError(true);
+                // redirect to /
+                window.location.href = '/';
             } finally {
                 setLoading(false);
             }
@@ -111,7 +113,7 @@ export default function Site() {
                 </Button>
                 <Header {...userData} />
                 {organizedComponentsObj.map((row, rowIndex) => (
-                    <div key={rowIndex} className="flex flex-row items-center justify-center">
+                    <div key={rowIndex} className="flex flex-col md:flex-row items-center justify-center">
                         {row.map((component, colIndex) => (
                             <div key={`${rowIndex}-${colIndex}`} className={`w-full ${row.length > 1 ? `md:w-1/${row.length}` : ''}`}>
                                 {renderComponent(component, userData, rowIndex + colIndex)}
