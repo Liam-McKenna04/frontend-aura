@@ -17,9 +17,38 @@ import { createClient } from '@supabase/supabase-js'
 const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY)
 
 export default function VotingHandler({ userData, votingContent, variant, component_id }: VotingHandlerProps) {
-  const [votes, setVotes] = useState<Record<string, number>>(() => 
-    Object.fromEntries(votingContent.options.map(category => [category, 0]))
-  )
+  const [votes, setVotes] = useState<Record<string, number>>({})
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchVotes = async () => {
+      setIsLoading(true)
+      const { data, error } = await supabase
+        .from('components')
+        .select('*')
+        .eq('id', component_id)
+        .single();
+
+      if (error) {
+        console.error('Error fetching votes:', error);
+      } else if (data && data.voting_array) {
+        const votesArray = JSON.parse(data.voting_array);
+        const updatedVotes: Record<string, number> = {};
+        votingContent.options.forEach((category, index) => {
+          updatedVotes[category] = votesArray[index] || 0;
+        });
+        setVotes(updatedVotes);
+      } else {
+        // If no data, initialize with zeros
+        const initialVotes = Object.fromEntries(votingContent.options.map(category => [category, 0]));
+        setVotes(initialVotes);
+      }
+      setIsLoading(false);
+    };
+
+    fetchVotes();
+  }, [component_id, votingContent.options]);
+
   //add supabase updating when state changes with debouncing 
   useEffect(() => {
     const debouncedUpdate = debounce(async () => {
@@ -30,35 +59,6 @@ export default function VotingHandler({ userData, votingContent, variant, compon
     }, 500)
     debouncedUpdate()
   }, [votes])
-
-  //fetch votes when component is mounted
-  useEffect(() => {
-    const fetchVotes = async () => {
-      const { data, error } = await supabase
-        .from('components')
-        .select('*')
-        .eq('id', component_id)
-        .single();
-
-      if (error) {
-        console.error('Error fetching votes:', error);
-      } else if (data && data.voting_array) {
-        console.log('data', data);
-        const votesArray = JSON.parse(data.voting_array);
-        setVotes(prevVotes => {
-          const updatedVotes = { ...prevVotes };
-          votingContent.options.forEach((category, index) => {
-            updatedVotes[category] = votesArray[index] || 0;
-          });
-          return updatedVotes;
-        });
-      }
-    };
-
-    fetchVotes();
-  }, [component_id, votingContent.options]);
-
-  
 
   const variantToComponentMap = {
     minimalist: [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
@@ -78,6 +78,10 @@ export default function VotingHandler({ userData, votingContent, variant, compon
 
   const selectedComponents = variantToComponentMap[variant as keyof typeof variantToComponentMap] || [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />]
   const votingChoice = hs(userData.twitter_username + "voting", selectedComponents.length)
+
+  if (isLoading) {
+    return <div>Loading...</div>; // Or any loading indicator
+  }
 
   return (
     <div className="px-20 py-10">
