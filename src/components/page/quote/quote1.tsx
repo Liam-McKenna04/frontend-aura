@@ -1,6 +1,17 @@
 import { UserData } from "@/Site";
 import { hs } from "@/lib/utils";
 
+// Add this function at the top of the file
+function getTextColor(backgroundColor: string): string {
+  // Simple logic to determine if text should be black or white
+  const rgb = parseInt(backgroundColor.slice(1), 16);
+  const r = (rgb >> 16) & 0xff;
+  const g = (rgb >> 8) & 0xff;
+  const b = (rgb >> 0) & 0xff;
+  const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return luma < 128 ? 'text-white' : 'text-black';
+}
+
 interface QuoteProps extends UserData {
   layoutStyle: string;
   quote: string;
@@ -8,8 +19,9 @@ interface QuoteProps extends UserData {
 
 // Minimalist Quote
 function QuoteMinimalist({ layoutStyle, ...props }: QuoteProps) {
+  const textColor = getTextColor(props.background_color);
   return (
-    <div className={`${layoutStyle} font-sans`}>
+    <div className={`${layoutStyle} font-sans ${textColor}`}>
       <p className="text-xl font-light leading-relaxed mb-4">{props.quote}</p>
       <footer className="text-sm font-medium">— {props.name}</footer>
     </div>
@@ -20,9 +32,10 @@ function QuoteMinimalist({ layoutStyle, ...props }: QuoteProps) {
 function QuoteElegantScript({ layoutStyle, ...props }: QuoteProps) {
   const scriptFonts = ["font-dancing-script", "font-pacifico", "font-great-vibes"];
   const scriptFont = scriptFonts[hs(props.twitter_username + "scriptfont", scriptFonts.length)];
+  const textColor = getTextColor(props.background_color);
 
   return (
-    <div className={`${layoutStyle} ${scriptFont}`}>
+    <div className={`${layoutStyle} ${scriptFont} ${textColor}`}>
       <p className="text-2xl italic mb-4">{props.quote}</p>
       <footer className="text-lg text-right">— {props.name}</footer>
     </div>
@@ -31,9 +44,9 @@ function QuoteElegantScript({ layoutStyle, ...props }: QuoteProps) {
 
 // Modern Drop Shadow Quote
 function QuoteModernDropShadow({ layoutStyle, ...props }: QuoteProps) {
-
+  const textColor = getTextColor(props.background_color);
   return (
-    <div className={`${layoutStyle} text-white p-6 rounded-lg`}>
+    <div className={`${layoutStyle} ${textColor} p-6 rounded-lg`}>
       <p className="text-xl font-bold mb-4">{props.quote}</p>
       <footer className="text-sm font-light">— {props.name}</footer>
     </div>
@@ -44,9 +57,10 @@ function QuoteModernDropShadow({ layoutStyle, ...props }: QuoteProps) {
 function QuoteRetroTypography({ layoutStyle, ...props }: QuoteProps) {
   const retroFonts = ["font-press-start-2p", "font-vt323", "font-pixel"];
   const retroFont = retroFonts[hs(props.twitter_username + "retrofont", retroFonts.length)];
+  const textColor = getTextColor(props.background_color);
 
   return (
-    <div className={`${layoutStyle} ${retroFont} bg-yellow-200 border-4 border-black p-4 drop-shadow-lg shadow-lg`}>
+    <div className={`${layoutStyle} ${retroFont} ${textColor} bg-yellow-200 border-4 border-black p-4 drop-shadow-lg shadow-lg`}>
       <p className="text-lg mb-4 leading-relaxed">{props.quote}</p>
       <footer className="text-sm text-right">— {props.name}</footer>
     </div>
