@@ -241,7 +241,7 @@ async function searchSimilarImages(description: string, color: string) {
   // @ts-ignore
   const apiKey = Deno.env.get('GOOGLE_API_KEY')
   const cx = 'e7e641ef5167547e4';
-  const query = encodeURIComponent(`${description}, aesthetic, vibe, ${color}`); // try other things like color
+  const query = encodeURIComponent(`${description}, aesthetic, vibe`); // try other things like color
   console.log('query: ', query)
   const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&searchType=image&q=${query}`;
 
