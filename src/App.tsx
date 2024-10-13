@@ -58,9 +58,28 @@ export default function App() {
   const handleAnalyze = async () => {
     try {
       setIsLoading(true)
-      
+      // First, check if the user already exists in the database
+      const { data: existingUser, error: fetchError } = await supabase
+        .from('sites')
+        .select('twitter_username')
+        .eq('twitter_username', username.trim())
+        .single()
+
+      if (fetchError && fetchError.code !== 'PGRST116') {
+        // PGRST116 means no rows returned, which is fine
+        console.error('Error fetching existing user:', fetchError)
+        throw fetchError
+      }
+
+      if (existingUser) {
+        // User already exists, redirect to their site
+        window.location.href = `/site/${existingUser.twitter_username}`
+        return
+      }
+
+      // User doesn't exist, proceed with analysis
       const { data, error } = await supabase.functions.invoke('createSite', {
-        body: { username: username }
+        body: { username: username.trim() }
       })
 
       if (error) {
@@ -97,6 +116,7 @@ export default function App() {
       setIsDialogOpen(true)
     } catch (error) {
       console.error('Error analyzing site:', error)
+      
       // Show an error message to the user
       alert(`Error analyzing site: ${error instanceof Error ? error.message : 'Unknown error'}`)
     } finally {

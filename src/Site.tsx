@@ -50,6 +50,8 @@ export default function Site() {
                     .select('*')
                     .eq('twitter_username', user)
                     .single();
+                
+                    console.log(data)
 
                 if (error) throw error;
 
