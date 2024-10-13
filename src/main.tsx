@@ -15,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/site/:siteId",
     element: <Site/>
+  },
+  {
+    path: "/:siteId",
+    element: <Site/>
   }
 ]);
 

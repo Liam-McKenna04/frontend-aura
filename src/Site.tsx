@@ -36,7 +36,7 @@ export interface UserData {
 
 
 export default function Site() {
-    const user = useLocation().pathname.split('/')[2];
+    const user = useLocation().pathname.split('/')[2] ||useLocation().pathname.split('/')[1]  ;
     const [userData, setUserData] = useState<UserData | null>(null);
     const [siteOutline, setSiteOutline] = useState<SiteComponent[] | null>(null);
     const [loading, setLoading] = useState(true);
