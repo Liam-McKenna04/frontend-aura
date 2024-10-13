@@ -225,10 +225,10 @@ function organizeComponents(components: SiteComponent[], username: string): Site
 
 function shareToTwitter(username: string) {
     const texts = [
-        `my aura made a site, its insane https://yourwebsite.com/${username}`,
-        `My digital aura has been transformed into a monstrosity. Take a look! https://yourwebsite.com/${username}`,
-        `this is the worst website ever seen https://yourwebsite.com/${username}`,
-        `an AI did WHAT with my aura (not clickbait) . https://yourwebsite.com/${username}`
+        `my aura made a site, its insane https://frontend-aura.vercel.app/${username}`,
+        `My digital aura has been transformed into a monstrosity. Take a look! https://frontend-aura.vercel.app/${username}`,
+        `this is the worst website ever seen https://frontend-aura.vercel.app/${username}`,
+        `an AI did WHAT with my aura (not clickbait) . https://frontend-aura.vercel.app/${username}`
     ];
     
     const randomText = texts[Math.floor(Math.random() * texts.length)];
