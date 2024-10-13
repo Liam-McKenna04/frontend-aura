@@ -13,7 +13,7 @@ interface VotingProps {
   userData: UserData
 }
 
-export default function VotingMinimalist({ question, categories, votes, setVotes, userData }: VotingProps) {
+export default function VotingMinimalist({ question, categories, votes, setVotes }: VotingProps) {
   const [selected, setSelected] = useState<string>("")
 
   const handleVote = () => {

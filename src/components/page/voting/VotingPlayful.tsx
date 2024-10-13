@@ -10,7 +10,7 @@ interface VotingProps {
   userData: UserData
 }
 
-export default function VotingPlayful({ question, categories, votes, setVotes, userData }: VotingProps) {
+export default function VotingPlayful({ question, categories, votes, setVotes }: VotingProps) {
   const handleVote = (option: string) => {
     setVotes(prev => ({ ...prev, [option]: prev[option] + 1 }))
   }
