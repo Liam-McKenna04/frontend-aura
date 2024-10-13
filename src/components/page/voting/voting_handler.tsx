@@ -61,22 +61,22 @@ export default function VotingHandler({ userData, votingContent, variant, compon
   
 
   const variantToComponentMap = {
-    minimalist: [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    playful: [<VotingPlayful categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    elegant: [<VotingElegant categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    cyberpunk: [<VotingCyberpunk categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    nature: [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />, <VotingPlayful categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    futuristic: [<VotingCyberpunk categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />, <VotingElegant categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    industrial: [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />, <VotingCyberpunk categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    bohemian: [<VotingPlayful categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />, <VotingElegant categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    vintage: [<VotingElegant categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    tropical: [<VotingPlayful categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />, <VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    zen: [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    neon: [<VotingCyberpunk categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />, <VotingPlayful categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
-    rustic: [<VotingElegant categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />, <VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />],
+    minimalist: [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    playful: [<VotingPlayful categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    elegant: [<VotingElegant categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    cyberpunk: [<VotingCyberpunk categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    nature: [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />, <VotingPlayful categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    futuristic: [<VotingCyberpunk categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />, <VotingElegant categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    industrial: [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />, <VotingCyberpunk categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    bohemian: [<VotingPlayful categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />, <VotingElegant categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    vintage: [<VotingElegant categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    tropical: [<VotingPlayful categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />, <VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    zen: [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    neon: [<VotingCyberpunk categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />, <VotingPlayful categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
+    rustic: [<VotingElegant categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />, <VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />],
   }
 
-  const selectedComponents = variantToComponentMap[variant as keyof typeof variantToComponentMap] || [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} />]
+  const selectedComponents = variantToComponentMap[variant as keyof typeof variantToComponentMap] || [<VotingMinimalist categories={votingContent.options} votes={votes} setVotes={setVotes} question={votingContent.question} userData={userData} />]
   const votingChoice = hs(userData.twitter_username + "voting", selectedComponents.length)
 
   return (
@@ -85,4 +85,3 @@ export default function VotingHandler({ userData, votingContent, variant, compon
     </div>
   )
 }
-

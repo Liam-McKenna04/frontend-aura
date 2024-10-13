@@ -182,7 +182,7 @@ function getHarmonyScore(colors: number[][]): number {
 
     let finalScore = (numColorsScore + avgDistanceScore) / 2;
 
-    return Math.max(1, Math.min(10, Math.round(finalScore * 10) / 10));
+    return Math.max(1, Math.min(10, (Math.round(finalScore * 10) + 2) / 10));
 }
 
 function getMostDifferentColors(colors: number[][], count: number): number[][] {

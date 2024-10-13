@@ -2,15 +2,16 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-
+import { UserData } from "@/Site"
 interface VotingProps {
   question: string // New prop for the question
   categories: string[]
   votes: Record<string, number>
   setVotes: React.Dispatch<React.SetStateAction<Record<string, number>>>
+  userData: UserData
 }
 
-export default function VotingElegant({ question, categories, votes, setVotes }: VotingProps) {
+export default function VotingElegant({ question, categories, votes, setVotes, userData }: VotingProps) {
   const [selected, setSelected] = useState<string>("")
 
   const handleVote = () => {

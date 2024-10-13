@@ -4,15 +4,16 @@ import { useState } from "react"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-
+import { UserData } from "@/Site"
 interface VotingProps {
   question: string // New prop for the question
   categories: string[]
   votes: Record<string, number>
   setVotes: React.Dispatch<React.SetStateAction<Record<string, number>>>
+  userData: UserData
 }
 
-export default function VotingMinimalist({ question, categories, votes, setVotes }: VotingProps) {
+export default function VotingMinimalist({ question, categories, votes, setVotes, userData }: VotingProps) {
   const [selected, setSelected] = useState<string>("")
 
   const handleVote = () => {

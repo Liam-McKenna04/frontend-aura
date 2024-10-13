@@ -1,15 +1,16 @@
 "use client"
 
 import { motion } from "framer-motion"
-
+import { UserData } from "@/Site"
 interface VotingProps {
   question: string // New prop for the question
   categories: string[]
   votes: Record<string, number>
   setVotes: React.Dispatch<React.SetStateAction<Record<string, number>>>
+  userData: UserData
 }
 
-export default function VotingPlayful({ question, categories, votes, setVotes }: VotingProps) {
+export default function VotingPlayful({ question, categories, votes, setVotes, userData }: VotingProps) {
   const handleVote = (option: string) => {
     setVotes(prev => ({ ...prev, [option]: prev[option] + 1 }))
   }
