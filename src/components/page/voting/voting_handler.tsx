@@ -19,9 +19,11 @@ const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env
 export default function VotingHandler({ userData, votingContent, variant, component_id }: VotingHandlerProps) {
   const [votes, setVotes] = useState<Record<string, number>>({})
   const [isLoading, setIsLoading] = useState(true)
+  const [hasInitialized, setHasInitialized] = useState(false)
 
   useEffect(() => {
     const fetchVotes = async () => {
+      if (hasInitialized) return;
       setIsLoading(true)
       const { data, error } = await supabase
         .from('components')
@@ -38,16 +40,13 @@ export default function VotingHandler({ userData, votingContent, variant, compon
           updatedVotes[category] = votesArray[index] || 0;
         });
         setVotes(updatedVotes);
-      } else {
-        // If no data, initialize with zeros
-        const initialVotes = Object.fromEntries(votingContent.options.map(category => [category, 0]));
-        setVotes(initialVotes);
       }
       setIsLoading(false);
+      setHasInitialized(true);
     };
 
     fetchVotes();
-  }, [component_id, votingContent.options]);
+  }, [component_id, votingContent.options, hasInitialized]);
 
   //add supabase updating when state changes with debouncing 
   useEffect(() => {

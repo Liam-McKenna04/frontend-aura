@@ -140,8 +140,6 @@ function HeroGradient({ layoutStyle, ...props }: HeroProps) {
 
 // Retro Hero
 function HeroRetro({ layoutStyle, ...props }: HeroProps) {
-  const retroFonts = ["font-press-start-2p", "font-vt323", "font-pixel"];
-  const retroFont = retroFonts[hs(props.twitter_username + "retrofont", retroFonts.length)];
 
   const [message, setMessage] = useState('');
 
@@ -164,11 +162,11 @@ function HeroRetro({ layoutStyle, ...props }: HeroProps) {
   };
 
   return (
-    <div className={`${layoutStyle} ${retroFont} bg-black text-green-400 p-4`}>
-      <h1 className="text-3xl mb-2">GREETINGS, I'M {props.name.toUpperCase()}</h1>
-      <p className="text-lg">{props.twitter_bio.toUpperCase()}</p>
+    <div className={`${layoutStyle} font-press-start-2p  bg-black text-green-400 p-4`}>
+      <h1 className="text-md sm:text-2xl mb-2">GREETINGS, I'M {props.name.toUpperCase()}</h1>
+      <p className="text-sm sm:text-lg">{props.twitter_bio.toUpperCase()}</p>
       <button 
-        className={`px-4 py-2 rounded ${retroFont} transition duration-300`}
+        className={`px-4 py-2 rounded font-press-start-2p transition duration-300`}
         onClick={handleClick}
       >
         {message || 'Click me!'}
