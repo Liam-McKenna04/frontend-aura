@@ -7,19 +7,29 @@ interface HeroProps extends UserData {
   layoutStyle: string;
 }
 
+function getTextColor(backgroundColor: string): string {
+  // Simple logic to determine if text should be black or white
+  const rgb = parseInt(backgroundColor.slice(1), 16);
+  const r = (rgb >> 16) & 0xff;
+  const g = (rgb >> 8) & 0xff;
+  const b = (rgb >> 0) & 0xff;
+  const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return luma < 128 ? 'text-white' : 'text-black';
+}
+
 // Minimalist Hero
 function HeroMinimalist({ layoutStyle, ...props }: HeroProps) {
   const buttonStyles = ["bg-gray-200 hover:bg-gray-300", "border border-gray-400 hover:border-gray-600", "underline hover:no-underline"];
   const buttonStyle = buttonStyles[hs(props.twitter_username + "minimalistBtn", buttonStyles.length)];
-
+  const textColor = getTextColor(props.background_color);
   const handleClick = () => {
     window.open('https://x.com/' + props.twitter_username, '_blank');
   };
 
   return (
     <div className={`${layoutStyle} font-sans`}>
-      <h1 className="text-4xl font-light mb-2">Hello, I'm {props.name}</h1>
-      <p className="text-xl text-gray-600 mb-4">{props.twitter_bio}</p>
+      <h1 className={`text-4xl font-light mb-2 ${textColor}`}>Hello, I'm {props.name}</h1>
+      <p className={`text-xl ${textColor} mb-4`}>{props.twitter_bio}</p>
       <button 
         className={`px-4 py-2 rounded ${buttonStyle} transition duration-300`}
         onClick={handleClick}
